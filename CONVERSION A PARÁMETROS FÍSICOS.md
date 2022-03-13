@@ -9,13 +9,13 @@ Jessica Bernal Borrego
 #####  - Level 1: imágenes que ofrecen ND. Estos datos se pueden convertir en radiancia o reflectancia en el sensor utilizando parámetros de escala aditivos y multiplicativos.
 ##### - Level 2: imágenes que muestran la reflectancia en la zona baja de la atmósfera (BOA).  En este caso, la escena ha sufrido un proceso de corrección atmosférica ya.
 
- ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f32.png)
+![image](https://user-images.githubusercontent.com/100314590/158053952-98d22020-3a18-4367-b742-d22583cc5e7c.png)
 
 
 
 ### 1. Radiancia
 ##### La transformación de ND a radiancia se puede hacer mediante el método de ganancia y sesgo. Este método, que convierte los valores de los ND de la imagen en valores de radiancia espectral (Lλ), utiliza la siguiente ecuación: 
-> ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f33.png)
+> ![image](https://user-images.githubusercontent.com/100314590/158053962-543f0dcd-f806-43bf-b605-75988a5cab3a.png)
 
 
 ##### Los valores de la ganancia (*gain*) y sesgo (*offset*) se pueden consultar en los metadatos de las imágenes. Para nuestro caso son los siguientes:
@@ -49,18 +49,18 @@ Jessica Bernal Borrego
 ##### Como vemos, cada banda posee unos parámetros de conversión de radiancia, con lo que las operaciones de conversión han de hacerse de forma independiente para cada una de ellas. Como ejemplo utilizaremos la banda 5, para la que se considera una ganancia de 0.0062648 y un sesgo de -31.32385.
 ##### Accedemos a la Calculadora Ráster desde el menú *Ráster → Calculadora ráster*:
 
-![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f34.png)
+![image](https://user-images.githubusercontent.com/100314590/158054004-afd60433-7879-4dc9-859a-4750a4ca93c6.png)
 
 
 ##### La imagen resultante es visualmente similar a la imagen original, ya que lo que varía son los valores radiométricos. Si se comparan los valores de un mismo píxel de la banda original y la banda de radiancia, observamos como la banda original presenta valores  enteros (ND) y la banda de radiancia valores reales (radiancia = energía).
  
-![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f35.png)
+![image](https://user-images.githubusercontent.com/100314590/158054012-e261ca90-1a6d-4d2d-92e0-61f7e88a90bf.png)
 
 
 ### 2. Reflectancia
 ##### Este paso se suele calcular a partir de los valores de radiancia, para la mayoría de los sensores se realiza siguiendo la ecuación:
  
-> ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f36.png)
+> ![image](https://user-images.githubusercontent.com/100314590/158054023-66103e5c-79e4-4906-83f8-e92bfa7bfff4.png)
 
 
 ##### Donde,
@@ -69,7 +69,7 @@ Jessica Bernal Borrego
 ##### • π =3.14159
 ##### • d es la distancia entre la tierra y el sol, en unidades astronómicas, que se puede calcular usando la ecuación (Eva and Lambin, 1998). 
 
-> ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f37.png)
+> ![image](https://user-images.githubusercontent.com/100314590/158054040-7026b4b4-897d-4e10-a4e1-75e987329d11.png)
 
 
 ##### • ESunλ es la irradiancia solar en la banda de interés (λ) medida en el tope de la  atmósfera. 
@@ -78,12 +78,12 @@ Jessica Bernal Borrego
 ##### En sensores antiguos es necesario hacer una transformación de ND a radiancia para posteriormente convertir radiancia en reflectancia. Sin embargo, en Landsat 8 la conversión a reflectancia puede hacerse directamente desde la imagen original. 
 ##### Podemos realizar una primera aproximación de reflectancia utilizando la ecuación del sesgo y la ganancia adaptada: 
 
-> ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f38.png)
+> ![image](https://user-images.githubusercontent.com/100314590/158054045-43a7d66d-563f-49d9-b105-56b4961bc194.png)
 
 
 ##### Más preciso es utilizar la corrección del ángulo solar de los valores obtenidos. USGS ofrece herramientas que permiten obtener el ángulo solar de cada píxel para hacer una corrección avanzada del ángulo solar de cada píxel. No obstante, en nuestro ejemplo se usará el valor del ángulo de elevación solar del centro de la escena como aproximación a toda la imagen.
 
-> ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f39.png)
+> ![image](https://user-images.githubusercontent.com/100314590/158054049-2cf7f7f7-5a48-4567-8c91-f521cfef73e1.png)
 
 
 ##### Los parámetros los podemos encontrar consultando los metadatos de la imagen, que en nuestro caso son:
@@ -113,12 +113,12 @@ SUN_ELEVATION = 36.48435176
 ##### Como para la radiancia, a cada banda se le aplicaría unos parámetros de conversión de reflectancia utilizando los valores sesgo y ganancia correspondientes.
 ##### Realizamos la operación para la banda 5, que presenta una ganancia de 0.00002, un sesgo de -0.1 y un ángulo de elevación solar de 36.48435176 (*Ráster --> Calculadora ráster*)
 
- ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f3a.png)
+![image](https://user-images.githubusercontent.com/100314590/158054060-2454ac2d-e39c-44a2-bd8e-16ae2821f293.png)
 
 
 ##### Comparamos los valores de un mismo píxel en la banda original y la banda de reflectancia, y observamos como la banda original presenta valores enteros (ND) y la banda de reflectancia valores reales que van de 0 (0% de reflectancia) a 1 (100% de reflectancia).
 
-![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f3b.png)
+![image](https://user-images.githubusercontent.com/100314590/158054066-169a0535-b4f0-4275-ae86-26b4632d45ed.png)
 
 
 
@@ -136,18 +136,17 @@ RADIANCE_ADD_BAND_11 = 0.10000
 ~~~
 ##### Poniendo como ejemplo el cálculo de temperatura de la banda 11, el valor de ganancia será 0.0003342 y el valor de sesgo será 0.1.
  
-![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f3c.png)
+![image](https://user-images.githubusercontent.com/100314590/158054077-ee71773e-3326-4db3-aecc-ea6612cbeb6b.png)
 
 
 
 ##### Comprobamos la transformación de los valores de radiométricos. Los nuevos valores de la banda de radiancia son valores reales (radiancia = energía):
  
-![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f3d.png)
-
+![image](https://user-images.githubusercontent.com/100314590/158054080-2e6f427d-4861-484f-ad78-b547cb724ed2.png)
 
 ##### Una vez que se ha obtenido la radiancia, se procede a obtener la temperatura mediante la siguiente ecuación:
 
-> ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f3e.png)
+> ![image](https://user-images.githubusercontent.com/100314590/158054083-afa2f985-136b-42f2-b177-86d3aa068424.png)
 
 
 ##### Los valores de las constantes K1 y K2 se obtienen del archivo de metadatos:
@@ -162,13 +161,13 @@ GROUP = LEVEL1_THERMAL_CONSTANTS
 ~~~
 ##### Para la Banda 10, el valor de K1 es 774.8853 y el de K2 es 1321.0789. Procedemos a ejecutar la función en la calculadora ráster:
 
- ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f3f.png)
+![image](https://user-images.githubusercontent.com/100314590/158054091-e1da1f7d-9c2a-44fb-92a5-52c8b73383cb.png)
 
 
 
 ##### Comprobamos cómo han variado los valores de radiométricos, siendo los nuevos valores de la banda de radiancia valores reales:
 
- ![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f40.png)
+![image](https://user-images.githubusercontent.com/100314590/158054096-9663a3fd-808c-4d28-9cb8-f3ec103fdd6e.png)
 
 
 
@@ -177,11 +176,11 @@ GROUP = LEVEL1_THERMAL_CONSTANTS
 ##### Esta temperatura corresponde a grados Kelvin, si queremos convertir los valores de temperatura de Kelvin a Celsius, sólo tenemos que restar a la imagen -273.15,
  
 
-![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f41.png)
+![image](https://user-images.githubusercontent.com/100314590/158054099-de4b9a24-544f-4f4d-b0cd-a6e953fcd207.png)
 
 
 
-![](https://codimd.s3.shivering-isles.com/demo/uploads/55c84c826662ee144f2d26f42.png)
+![image](https://user-images.githubusercontent.com/100314590/158054103-04b5ae99-4de9-4036-b98a-c03d369d4e4f.png)
 
 
 
